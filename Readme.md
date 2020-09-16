@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Егор Ткаченко](https://up.htmlacademy.ru/javascript/21/user/161585).
-* Наставник: `Неизвестно`.
+* Наставник: `Руслан Бреев`.
 
 ---
 
