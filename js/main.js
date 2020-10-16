@@ -1,16 +1,16 @@
 'use strict';
 
-var getRandomValue = function (max, min) {
+const getRandomValue = function (max, min) {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-var minLikes = 15;
-var maxLikes = 200;
+const minLikes = 15;
+const maxLikes = 200;
 
-var pictureList = document.querySelector(`.pictures`);
-var picture = document.querySelector(`#picture`).content.querySelector(`.picture`);
+const pictureList = document.querySelector(`.pictures`);
+const picture = document.querySelector(`#picture`).content.querySelector(`.picture`);
 
-var userNames = [
+let userNames = [
   `Коля Моля`,
   `Маша Саша`,
   `Петя Бетя`,
@@ -22,7 +22,7 @@ var userNames = [
   `Дедушка Митя`
 ];
 
-var commentBodies = [
+const commentBodies = [
   `Всё отлично!`,
   `В целом всё неплохо. Но не всё.`,
   `Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.`,
@@ -31,7 +31,7 @@ var commentBodies = [
   `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`
 ];
 
-var pictureDescriptions = [
+const pictureDescriptions = [
   `Мое фото.`,
   `Я тут был совсем недавно`,
   `Мотивация для домохозяек`,
@@ -42,11 +42,11 @@ var pictureDescriptions = [
   `Продам бизнес секреты`
 ];
 
-var postAmount = 25;
-var posts = [];
-var comments = [];
+const postAmount = 25;
+let posts = [];
+let comments = [];
 
-for (var i = 0; i < commentBodies.length; i++) {
+for (var commentBodiesCount = 0; commentBodiesCount < commentBodies.length; commentBodiesCount++) {
   comments[i] = {
     avatar: `img/avatar-` + getRandomValue(6, 1) + `.svg`,
     message: commentBodies[getRandomValue(commentBodies.length, 0)],
@@ -55,7 +55,7 @@ for (var i = 0; i < commentBodies.length; i++) {
 }
 
 for (var postCount = 0; postCount < postAmount; postCount++) {
-  var imageNumber = 1;
+  let imageNumber = 1;
   imageNumber += postCount;
   posts[postCount] = {
     url: `photos/` + imageNumber + `.jpg`,
@@ -67,8 +67,8 @@ for (var postCount = 0; postCount < postAmount; postCount++) {
 
 // Отрисовка пользовательских фотографий
 
-var renderPost = function () {
-  var postElement = picture.cloneNode(true);
+const renderPost = function () {
+  const postElement = picture.cloneNode(true);
 
   postElement.querySelector(`.picture__img`).src = posts[i].url;
   postElement.querySelector(`.picture__likes`).textContent = posts[i].likes;
@@ -77,7 +77,7 @@ var renderPost = function () {
   return postElement;
 };
 
-var fragment = document.createDocumentFragment();
+const fragment = document.createDocumentFragment();
 
 for (var i = 0; i < posts.length; i++) {
   fragment.appendChild(renderPost(posts[i]));
@@ -85,77 +85,26 @@ for (var i = 0; i < posts.length; i++) {
 
 pictureList.appendChild(fragment);
 
-// Показать полный пост
-
-var socialCommentCount = document.querySelector(`.social__comment-count`);
-var commentsLoader = document.querySelector(`.comments-loader`);
-
-socialCommentCount.classList.add(`hidden`)
-commentsLoader.classList.add(`hidden`)
-
-var thumbnails = document.querySelectorAll(`.picture`);
-var fullPicture = document.querySelector(`.big-picture`);
-var bigPictureCancel = document.querySelector(`.big-picture__cancel`);
-var pictureImg = document.querySelector(`.big-picture__img img`);
-var lickes = document.querySelector(`.likes-count`);
-var commentCount = document.querySelector(`.comments-count`);
-var socialComments = document.querySelector(`.social__comments`);
-var socialComment = document.querySelector(`.social__comment`);
-var socialCommentTemplates = document.querySelectorAll(`.social__comment`);
-var socialCaption = document.querySelector(`.social__caption`);
-
-var addThumbnailClickHandler = function (thumbnail, picture, likeTotal, commentTotal, caption) {
-  thumbnail.addEventListener(`click`, function () {
-    fullPicture.classList.remove(`hidden`);
-    pictureImg.src = picture;
-    lickes.textContent = likeTotal;
-    commentCount.textContent = commentTotal;
-    socialCaption.textContent = caption;
-  });
-};
-
-for (var i = 0; i < thumbnails.length; i++) {
-  addThumbnailClickHandler(
-    thumbnails[i],
-    posts[i].url,
-    posts[i].likes,
-    posts[i].comments.length,
-    posts[i].description
-  );
-
-  bigPictureCancel.addEventListener(`click`, function () {
-    fullPicture.classList.add(`hidden`);
-  });
-};
-
 // Слайдер
 
-var effectLevel = 25;
+const imgUploadEffects = document.querySelector('.img-upload__effects');
+const imgUploadPreview = document.querySelector(`.img-upload__preview`);
+const imgUploadPreviewContent = imgUploadPreview.querySelector(`img`);
 
-var effectLevelPin = document.querySelector(`.effect-level__pin`);
-var effectsRadio = document.querySelectorAll(`.effects__radio`);
-var imgUploadEffects = document.querySelector('.img-upload__effects');
-var imgUploadPreview = document.querySelector(`.img-upload__preview`);
-var imgUploadPreviewContent = imgUploadPreview.querySelector(`img`);
-
-var levelPinMove = function () {
-  console.log(`Кликнут пин слайдера`);
-};
-
-var getCleanStyle = function () {
+const getCleanStyle = function () {
   imgUploadPreviewContent.classList.remove(
-    `effects__preview--chrome`,
-    `effects__preview--sepia`,
-    `effects__preview--marvin`,
-    `effects__preview--phobos`,
-    `effects__preview--heat`
+      `effects__preview--chrome`,
+      `effects__preview--sepia`,
+      `effects__preview--marvin`,
+      `effects__preview--phobos`,
+      `effects__preview--heat`
   );
 };
 
-var effectsRadioChangeHandler = function (evt) {
+const effectsRadioChangeSelectHandler = function (evt) {
   if (evt.target && evt.target.matches('input[type="radio"]')) {
     var selectedEffect = evt.target.value;
-  };
+  }
 
   var preparedStyle = `effects__preview--` + selectedEffect;
 
@@ -165,121 +114,115 @@ var effectsRadioChangeHandler = function (evt) {
     imgUploadPreviewContent.classList.add(preparedStyle);
   } else {
     getCleanStyle();
-  };
+  }
 };
-
-imgUploadEffects.addEventListener('change', effectsRadioChangeHandler);
 
 // Масштабилка
 
-var minScaleValue = 25;
-var maxScaleValue = 100;
+const minScaleValue = 25;
+const maxScaleValue = 100;
 
-var scaleControlSmaller = document.querySelector(`.scale__control--smaller`);
-var scaleControlBigger = document.querySelector(`.scale__control--bigger`);
-var scaleControlValue = document.querySelector(`.scale__control--value`);
+const scaleControlSmaller = document.querySelector(`.scale__control--smaller`);
+const scaleControlBigger = document.querySelector(`.scale__control--bigger`);
+const scaleControlValue = document.querySelector(`.scale__control--value`);
 
-var currentScaleValue = minScaleValue;
+let currentScaleValue = minScaleValue;
 scaleControlValue.value = String(currentScaleValue + `%`);
 
-var increaseScale = function () {
+const increaseScaleClickHandler = function () {
   if (currentScaleValue < maxScaleValue) {
     currentScaleValue += minScaleValue;
-  };
+  }
   scaleControlValue.value = String(currentScaleValue + `%`);
   imgUploadPreviewContent.style.transform = `scale(` + currentScaleValue * 0.01 + `)`;
 };
 
-var decreaseScale = function () {
+const decreaseScaleClickHandler = function () {
   if (currentScaleValue > minScaleValue) {
     currentScaleValue -= minScaleValue;
-  };
+  }
   scaleControlValue.value = String(currentScaleValue + `%`);
   imgUploadPreviewContent.style.transform = `scale(` + currentScaleValue * 0.01 + `)`;
 };
 
 // Валидация хештегов
 
-var MAX_DESCRIPTION_LENGTH = 140;
+const MAX_DESCRIPTION_LENGTH = 140;
 
-var maxHashtagCount = 6;
-var hashtags = document.querySelector(`.text__hashtags`);
-var imgUploadForm = document.querySelector(`.img-upload__form`);
-var imgUploadSubmit = document.querySelector(`.img-upload__submit`);
-var textDescription = document.querySelector(`.text__description`);
+const maxHashtagCount = 5;
+const hashtags = document.querySelector(`.text__hashtags`);
+const textDescription = document.querySelector(`.text__description`);
 
 var regexTag = /^#[\w]{1,19}$/;
 
-var inputPictureDescription = function () {
+var textDescriptionInputHandler = function () {
   var valueLength = textDescription.value.length;
 
   if (valueLength > MAX_DESCRIPTION_LENGTH) {
-    textDescription.setCustomValidity('Удалите лишние ' + (valueLength - MAX_DESCRIPTION_LENGTH) +' симв.');
+    textDescription.setCustomValidity('Удалите лишние ' + (valueLength - MAX_DESCRIPTION_LENGTH) + ' симв.');
   } else {
     textDescription.setCustomValidity('');
   }
   textDescription.reportValidity();
 };
 
-var inputPictureTags = function () {
+var hashtagsInputHandler = function () {
   var hashtagList = hashtags.value.split(` `);
-  for (var i = 0; i < hashtagList.length; i++) {
+  for (var hashtagListCount = 0; hashtagListCount < hashtagList.length; hashtagListCount++) {
     var checkResult = regexTag.test(hashtagList[i]);
-  };
+  }
 
-  if (hashtagList.length > 5) {
+  if (hashtagList.length > maxHashtagCount) {
     hashtags.setCustomValidity('Вы можеье даба  вить не более 5 тегов');
   } else if (!checkResult) {
     hashtags.setCustomValidity('Ошибка тега');
   } else {
     hashtags.setCustomValidity('');
-  };
+  }
   hashtags.reportValidity();
 };
 
 
-
 // Открыть попап
 
-var uploadFileButton = document.querySelector(`#upload-file`);
-var imgUploadOverlay = document.querySelector(`.img-upload__overlay`);
-var uploadCancel = document.querySelector(`#upload-cancel`);
-var body = document.querySelector(`body`);
+const uploadFileButton = document.querySelector(`#upload-file`);
+const imgUploadOverlay = document.querySelector(`.img-upload__overlay`);
+const uploadCancel = document.querySelector(`#upload-cancel`);
+const body = document.querySelector(`body`);
 
-var onPopupEscPress = function (evt) {
+const popupEscPressHandler = function (evt) {
   if (evt.key === `Escape`) {
     evt.preventDefault();
     closePopup();
-  };
+  }
 };
 
-var openPopup = function () {
+const openPopup = function () {
   imgUploadOverlay.classList.remove(`hidden`);
   body.classList.add(`modal-open`);
 
-  document.addEventListener(`keydown`, onPopupEscPress);
-  effectLevelPin.addEventListener(`mouseup`, levelPinMove);
-  imgUploadEffects.addEventListener('change', effectsRadioChangeHandler);
+  document.addEventListener(`keydown`, popupEscPressHandler);
+  imgUploadEffects.addEventListener('change', effectsRadioChangeSelectHandler);
 
   imgUploadPreviewContent.style.transform = `scale(` + currentScaleValue * 0.01 + `)`;
-  scaleControlBigger.addEventListener('click', increaseScale);
-  scaleControlSmaller.addEventListener('click', decreaseScale);
-  textDescription.addEventListener(`input`, inputPictureDescription);
-  hashtags.addEventListener(`input`, inputPictureTags);
+  scaleControlBigger.addEventListener('click', increaseScaleClickHandler);
+  scaleControlSmaller.addEventListener('click', decreaseScaleClickHandler);
+  textDescription.addEventListener(`input`, textDescriptionInputHandler);
+  hashtags.addEventListener(`input`, hashtagsInputHandler);
 };
 
-var closePopup = function () {
+const closePopup = function () {
   imgUploadOverlay.classList.add(`hidden`);
   body.classList.remove(`modal-open`);
 
-  document.removeEventListener(`keydown`, onPopupEscPress);
-  effectLevelPin.removeEventListener(`mouseup`, levelPinMove);
-  imgUploadEffects.removeEventListener('change', effectsRadioChangeHandler);
+  document.removeEventListener(`keydown`, popupEscPressHandler);
 
-  scaleControlBigger.removeEventListener('click', increaseScale);
-  scaleControlSmaller.removeEventListener('click', decreaseScale);
-  textDescription.removeEventListener(`input`, inputPictureDescription);
-  hashtags.removeEventListener(`input`, inputPictureTags);
+  imgUploadEffects.removeEventListener('change', effectsRadioChangeSelectHandler);
+
+  scaleControlBigger.removeEventListener('click', increaseScaleClickHandler);
+  scaleControlSmaller.removeEventListener('click', decreaseScaleClickHandler);
+  textDescription.removeEventListener(`input`, textDescriptionInputHandler);
+  hashtags.removeEventListener(`input`, hashtagsInputHandler);
 };
 
 uploadFileButton.addEventListener(`change`, function () {
@@ -293,5 +236,5 @@ uploadCancel.addEventListener(`click`, function () {
 uploadCancel.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Enter`) {
     closePopup();
-  };
+  }
 });
