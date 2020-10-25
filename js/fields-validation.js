@@ -23,7 +23,7 @@
   const hashtagsInputHandler = function () {
     const hashtagList = hashtags.value.split(` `);
     for (var i = 0; i < hashtagList.length; i++) {
-      const checkResult = regexTag.test(hashtagList[i]);
+      var checkResult = regexTag.test(hashtagList[i]);
     }
 
     if (hashtagList.length > maxHashtagCount) {
@@ -41,5 +41,5 @@
     textDescription: textDescription,
     textDescriptionInputHandler: textDescriptionInputHandler,
     hashtagsInputHandler: hashtagsInputHandler
-  }
+  };
 })();

@@ -35,5 +35,5 @@
     imgUploadEffects: imgUploadEffects,
     imgUploadPreviewContent: imgUploadPreviewContent,
     effectsRadioChangeSelectHandler: effectsRadioChangeSelectHandler
-  }
+  };
 })();

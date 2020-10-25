@@ -33,5 +33,5 @@
     currentScaleValue: currentScaleValue,
     increaseScaleClickHandler: increaseScaleClickHandler,
     decreaseScaleClickHandler: decreaseScaleClickHandler
-  }
+  };
 })();

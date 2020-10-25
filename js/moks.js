@@ -42,5 +42,5 @@
     userNames: userNames,
     commentBodies: commentBodies,
     pictureDescriptions: pictureDescriptions
-  }
+  };
 })();
