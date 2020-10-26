@@ -34,7 +34,7 @@
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
-              <input type="file" id="upload-file" class="img-upload__input  visually-hidden" name="filename" required>
+              <input type="file" id="upload-file" class="img-upload__input  visually-hidden" name="filename" accept="image/jpeg, image/png" required>
               <label for="upload-file" class="img-upload__label  img-upload__control">Загрузить</label>
             </fieldset>
 
@@ -118,7 +118,7 @@
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                  <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
+                  <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" method="post" enctype="multipart/form-data" action="https://21.javascript.pages.academy/kekstagram" autocomplete="off">
                   <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea>
                 </fieldset>
 
@@ -200,7 +200,7 @@
   <!-- Шаблон изображения случайного пользователя -->
   <template id="picture">
     <a href="#" class="picture">
-      <img class="picture__img" src="" width="182" height="182" alt="Случайная фотография">
+      <img class="picture__img" src="photos/15.jpg" width="182" height="182" alt="Случайная фотография">
       <p class="picture__info">
         <span class="picture__comments"></span>
         <span class="picture__likes"></span>
@@ -233,5 +233,12 @@
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
   </template>
 
+  <script src="js/util.js"></script>
+  <script src="js/moks.js"></script>
+  <script src="js/posts-render.js"></script>
+  <script src="js/picture-effects.js"></script>
+  <script src="js/picture-scale.js"></script>
+  <script src="js/fields-validation.js"></script>
+  <script src="js/upload-picture.js"></script>
 </body>
 </html>
