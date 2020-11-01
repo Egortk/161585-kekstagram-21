@@ -43,5 +43,8 @@
     fragment.appendChild(renderPost(posts[i]));
   }
 
-  pictureList.appendChild(fragment);
+  window.postsRender = {
+    pictureList: pictureList,
+    fragment: fragment
+  }
 })();
