@@ -46,5 +46,5 @@
   window.postsRender = {
     pictureList: pictureList,
     fragment: fragment
-  }
+  };
 })();
